@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5E984C5-0231-4395-B273-FCF9BD7323E2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Database</RootNamespace>
+    <AssemblyName>Database</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Category.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Migrations\201811210834158_DbCreation.cs" />
+    <Compile Include="Migrations\201811210834158_DbCreation.Designer.cs">
+      <DependentUpon>201811210834158_DbCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031000353_MigrationAddedRoles.cs" />
+    <Compile Include="Migrations\201812031000353_MigrationAddedRoles.Designer.cs">
+      <DependentUpon>201812031000353_MigrationAddedRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031318438_AddedUser.cs" />
+    <Compile Include="Migrations\201812031318438_AddedUser.Designer.cs">
+      <DependentUpon>201812031318438_AddedUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031430566_ChangedDeadLinetoString.cs" />
+    <Compile Include="Migrations\201812031430566_ChangedDeadLinetoString.Designer.cs">
+      <DependentUpon>201812031430566_ChangedDeadLinetoString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031454296_DeletedDeliveryTime.cs" />
+    <Compile Include="Migrations\201812031454296_DeletedDeliveryTime.Designer.cs">
+      <DependentUpon>201812031454296_DeletedDeliveryTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031458416_PricetoDouble.cs" />
+    <Compile Include="Migrations\201812031458416_PricetoDouble.Designer.cs">
+      <DependentUpon>201812031458416_PricetoDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812051130552_AddedPictures.cs" />
+    <Compile Include="Migrations\201812051130552_AddedPictures.Designer.cs">
+      <DependentUpon>201812051130552_AddedPictures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812051200174_AddedIsEnabledToProduct.cs" />
+    <Compile Include="Migrations\201812051200174_AddedIsEnabledToProduct.Designer.cs">
+      <DependentUpon>201812051200174_AddedIsEnabledToProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Order_Item.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductImage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="SupplierProperties.cs" />
+    <Compile Include="User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811210834158_DbCreation.resx">
+      <DependentUpon>201811210834158_DbCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031000353_MigrationAddedRoles.resx">
+      <DependentUpon>201812031000353_MigrationAddedRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031318438_AddedUser.resx">
+      <DependentUpon>201812031318438_AddedUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031430566_ChangedDeadLinetoString.resx">
+      <DependentUpon>201812031430566_ChangedDeadLinetoString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031454296_DeletedDeliveryTime.resx">
+      <DependentUpon>201812031454296_DeletedDeliveryTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031458416_PricetoDouble.resx">
+      <DependentUpon>201812031458416_PricetoDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812051130552_AddedPictures.resx">
+      <DependentUpon>201812051130552_AddedPictures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812051200174_AddedIsEnabledToProduct.resx">
+      <DependentUpon>201812051200174_AddedIsEnabledToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
