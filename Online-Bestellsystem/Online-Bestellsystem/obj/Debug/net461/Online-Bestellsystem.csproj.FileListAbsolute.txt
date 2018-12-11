@@ -634,3 +634,6 @@
 \\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\obj\Debug\net461\Online-Bestellsystem.csproj.CopyComplete
 \\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\obj\Debug\net461\Online-Bestellsystem.exe
 \\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\obj\Debug\net461\Online-Bestellsystem.pdb
+\\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\bin\Debug\net461\BouncyCastle.Crypto.dll
+\\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\bin\Debug\net461\MailKit.dll
+\\vmware-host\Shared Folders\Dokumente\Diplomarbeit\Bestellsystem\Online-Bestellsystem\Online-Bestellsystem\bin\Debug\net461\MimeKit.dll

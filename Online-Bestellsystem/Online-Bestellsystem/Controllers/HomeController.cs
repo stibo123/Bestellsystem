@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Online_Bestellsystem.Models;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
+using MailKit;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace Online_Bestellsystem.Controllers
 {
@@ -23,14 +26,14 @@ namespace Online_Bestellsystem.Controllers
         }
         public IActionResult Index()
         {
-            //addExampleUsers();
-            //addRoles();
+            //AddExampleUsers();
+            //AddRoles();
             return View(LoggedIn());
         }
 
         public string LoggedIn()
         {
-            var username = getUsernameFromCookie();
+            var username = GetUsernameFromCookie();
             if (username != null && username != "")
             {
                 try
@@ -46,7 +49,74 @@ namespace Online_Bestellsystem.Controllers
             return "Index";
         }
 
-        public List<Product> getProductsFromSupplier(Category category, User user)
+        public IActionResult ResetPassword()
+        {
+            string page = LoggedIn();
+            if (page != "Index") return View(page);
+            try
+            {
+                string username = Request.Form["username"];
+                string email = Request.Form["email"];
+
+                User user = db.Users.Single(x => x.Username == username);
+                if(user.Email == email)
+                {
+                    var newpassword = GeneratePassword(8);
+                    if(sendEmail(newpassword, user))
+                    {
+                        db.Users.Single(x => x.Username == username).Password = GenerateSHA512String(newpassword);
+                        db.SaveChanges();
+                        ViewBag.Reset = $"Passwort an {email} gesendet";
+                        return View("Index");
+                    }
+                    else
+                    {
+                        return View("Reset");
+                    }
+                    
+                }
+                else
+                {
+                    ViewBag.Reset = "Falsche Emailadresse";
+                }
+            }
+            catch
+            {
+                ViewBag.Reset = "Falscher Username/Fehler";
+            }
+            return View("Reset");
+        }
+
+        public bool sendEmail(string password, User user)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Bestellsystem Aspöck", "bestellsystemaspoeck@gmail.com"));
+                message.To.Add(new MailboxAddress($"{user.Firstname} {user.Lastname}", user.Email));
+                message.Subject = "Neues Passwort";
+                message.Body = new TextPart("plain")
+                {
+                    Text = $"Passwort: {password}"
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("bestellsystemaspoeck@gmail.com", "aspoeck123bestellsystem456");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                ViewBag.Reset = $"Fehler {e.Message}";
+                return false;
+            }
+        }
+
+        public List<Product> GetProductsFromSupplier(Category category, User user)
         {
             List<Product> products = new List<Product> { };
             try{
@@ -89,7 +159,7 @@ namespace Online_Bestellsystem.Controllers
             return products;
         }
 
-        public String getUsernameFromCookie()
+        public String GetUsernameFromCookie()
         {
             return HttpContext.Session.GetString("username");
         }
@@ -101,7 +171,14 @@ namespace Online_Bestellsystem.Controllers
         }
         public IActionResult Employee()
         {
-            return View("Employee");
+            EmployeeModel model = new EmployeeModel()
+            {
+                Supplier = db.Users.Where(x => x.Role.Name == "Supplier").ToList(),
+                Categories = db.Categories.ToList(),
+                Products = GetProductsFromSupplier(null, null)
+            };
+
+            return View(model);
         }
         public IActionResult Supplier()
         {
@@ -189,7 +266,7 @@ namespace Online_Bestellsystem.Controllers
         }
 
 
-        public void addRoles()
+        public void AddRoles()
         {
             Role admin = new Role { Name = "Admin" };
             Role employee = new Role { Name = "Employee" };
@@ -200,7 +277,7 @@ namespace Online_Bestellsystem.Controllers
             db.SaveChanges();
         }
 
-        public void addExampleUsers()
+        public void AddExampleUsers()
         {
             foreach (var user in db.Users)
             {
@@ -248,11 +325,22 @@ namespace Online_Bestellsystem.Controllers
                 Role = db.Roles.Single(x => x.Name == "Supplier"),
                 Password = GenerateSHA512String("password321")
             };
-            
+
+            User test = new User
+            {
+                Firstname = "Sebbi",
+                Lastname = "Frei",
+                Email = "testtesttesttesttest123123123huans3xyq@gmail.com",
+                Username = "test",
+                Role = db.Roles.Single(x => x.Name == "Employee"),
+                Password = GenerateSHA512String("test")
+            };
+
 
             db.Users.Add(admin);
             db.Users.Add(employee);
             db.Users.Add(supplier);
+            db.Users.Add(test);
             db.SaveChanges();
 
             SupplierProperties properties = new SupplierProperties

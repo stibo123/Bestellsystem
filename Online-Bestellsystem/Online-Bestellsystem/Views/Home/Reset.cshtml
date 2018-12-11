@@ -1,3 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Passwort vergessen";
 }
+
+<h1>Passwort vergessen</h1>
+<form asp-action="ResetPassword" method="post" id="form_Reset">
+    <div>
+        <label>Username: </label>
+        <input type="text" name="username" />
+    </div>
+
+    <div>
+        <label>Email: </label>
+        <input type="text" name="email" />
+    </div>
+
+    <div>
+        <input type="submit" id="btn_reset" value="Reset" />
+    </div>
+</form>
+
+<h1>@ViewBag.Reset</h1>

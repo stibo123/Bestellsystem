@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
+      "BouncyCastle/1.8.2": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "EntityFramework/6.2.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -54,6 +63,25 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "MailKit/2.1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.2",
+          "MimeKit": "2.1.0"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/MailKit.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MailKit.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.3": {
@@ -1361,6 +1389,25 @@
           }
         }
       },
+      "MimeKit/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.2"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Net.Http",
+          "System.Security"
+        ],
+        "compile": {
+          "lib/net45/MimeKit.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MimeKit.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.1": {
         "type": "package",
         "dependencies": {
@@ -2123,6 +2170,15 @@
       }
     },
     ".NETFramework,Version=v4.6.1/win7-x86": {
+      "BouncyCastle/1.8.2": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "EntityFramework/6.2.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2144,6 +2200,25 @@
         },
         "native": {
           "runtimes/win-x86/native/libuv.dll": {}
+        }
+      },
+      "MailKit/2.1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.2",
+          "MimeKit": "2.1.0"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/MailKit.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MailKit.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.3": {
@@ -3441,6 +3516,25 @@
           "runtimes/win/lib/net461/Microsoft.Win32.Registry.dll": {}
         }
       },
+      "MimeKit/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.2"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Net.Http",
+          "System.Security"
+        ],
+        "compile": {
+          "lib/net45/MimeKit.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MimeKit.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.1": {
         "type": "package",
         "dependencies": {
@@ -4128,6 +4222,18 @@
     }
   },
   "libraries": {
+    "BouncyCastle/1.8.2": {
+      "sha512": "1VNcrEowB9ucPhsZRENMx4GFbzJSvQ8P0XF+ZEEMfam8loKVRBPVZVjwVHx95lEs2NF6QSeED8WIQhoQ02q9PQ==",
+      "type": "package",
+      "path": "bouncycastle/1.8.2",
+      "files": [
+        ".nupkg.metadata",
+        "README.md",
+        "bouncycastle.1.8.2.nupkg.sha512",
+        "bouncycastle.nuspec",
+        "lib/BouncyCastle.Crypto.dll"
+      ]
+    },
     "EntityFramework/6.2.0": {
       "sha512": "ptGyXOf26qLrtn+2doAmylIlCxOnBJANwlyyLrXDmqIk9O18IzLWHyxDwwAyhgXkxmbiaA0WNpRy67WRReInBw==",
       "type": "package",
@@ -4174,6 +4280,31 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "MailKit/2.1.0.3": {
+      "sha512": "7u5SExaiYwOdzCxGcZBVigRCuVlmrwC7FxFGlQzzz3wXEjOftPXCgRnN/aB64sizrC7/nuMscTanV7Ct6i7lvw==",
+      "type": "package",
+      "path": "mailkit/2.1.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid/MailKit.dll",
+        "lib/monoandroid/MailKit.xml",
+        "lib/net45/MailKit.dll",
+        "lib/net45/MailKit.xml",
+        "lib/netstandard1.3/MailKit.dll",
+        "lib/netstandard1.3/MailKit.xml",
+        "lib/netstandard1.6/MailKit.dll",
+        "lib/netstandard1.6/MailKit.xml",
+        "lib/netstandard2.0/MailKit.dll",
+        "lib/netstandard2.0/MailKit.xml",
+        "lib/portable-win81+wpa81/MailKit.dll",
+        "lib/portable-win81+wpa81/MailKit.xml",
+        "lib/xamarinios/MailKit.dll",
+        "lib/xamarinios/MailKit.xml",
+        "mailkit.2.1.0.3.nupkg.sha512",
+        "mailkit.nuspec"
       ]
     },
     "Microsoft.AspNetCore/2.0.3": {
@@ -5461,6 +5592,37 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "MimeKit/2.1.0": {
+      "sha512": "sVU+f7BaLPwuEpyIHVTB+68SWCxYo6iqoLsntOjuJDRchwx/9a7RwV+eYwFnsXUuu+qWjJPhs6F0l/QnN26b7A==",
+      "type": "package",
+      "path": "mimekit/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid/BouncyCastle.dll",
+        "lib/monoandroid/MimeKit.dll",
+        "lib/monoandroid/MimeKit.xml",
+        "lib/net45/MimeKit.dll",
+        "lib/net45/MimeKit.xml",
+        "lib/netstandard1.3/MimeKit.dll",
+        "lib/netstandard1.3/MimeKit.xml",
+        "lib/netstandard1.6/MimeKit.dll",
+        "lib/netstandard1.6/MimeKit.xml",
+        "lib/netstandard2.0/MimeKit.dll",
+        "lib/netstandard2.0/MimeKit.xml",
+        "lib/portable-net45+win8+wpa81/MimeKit.dll",
+        "lib/portable-net45+win8+wpa81/MimeKit.xml",
+        "lib/portable-net45+win8+wpa81/Portable.Text.Encoding.dll",
+        "lib/portable-net45+win8/MimeKit.dll",
+        "lib/portable-net45+win8/MimeKit.xml",
+        "lib/portable-net45+win8/Portable.Text.Encoding.dll",
+        "lib/xamarinios/BouncyCastle.dll",
+        "lib/xamarinios/MimeKit.dll",
+        "lib/xamarinios/MimeKit.xml",
+        "mimekit.2.1.0.nupkg.sha512",
+        "mimekit.nuspec"
       ]
     },
     "NETStandard.Library/2.0.1": {
@@ -8201,6 +8363,7 @@
     ".NETFramework,Version=v4.6.1": [
       "Database >= 1.0.0",
       "EntityFramework >= 6.2.0",
+      "MailKit >= 2.1.0.3",
       "Microsoft.AspNetCore >= 2.0.3",
       "Microsoft.AspNetCore.Mvc >= 2.0.4",
       "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation >= 2.0.4",
@@ -8257,6 +8420,10 @@
           "EntityFramework": {
             "target": "Package",
             "version": "[6.2.0, )"
+          },
+          "MailKit": {
+            "target": "Package",
+            "version": "[2.1.0.3, )"
           },
           "Microsoft.AspNetCore": {
             "target": "Package",

@@ -1,7 +1,23 @@
 ﻿@using Database;
 @using Microsoft.AspNetCore.Http;
+@model EmployeeModel
 
 @{
-        var username = Context.Session.GetString("username");
-        <h1>@username</h1>
+    var username = Context.Session.GetString("username");
+    <h1>@username</h1>
 }
+
+<select id="categorie_menu" class="categories">
+        <option>Alle Produkte</option>
+</select>
+
+<style>
+
+    .categories {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+    }
+</style>
