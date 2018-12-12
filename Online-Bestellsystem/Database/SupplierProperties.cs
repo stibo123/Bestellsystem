@@ -12,8 +12,8 @@ namespace Database
         public String CompanyName { get; set; }
         public String DeadLine { get; set; }
         public bool WantEmail { get; set; }
-        public List<DateTime> DeliveryDates { get; set; }
-        public List<Product> Products { get; set; }
+        public virtual List<DateTime> DeliveryDates { get; set; }
+        public virtual List<Product> Products { get; set; }
         public virtual User User { get; set; }
     }
 }

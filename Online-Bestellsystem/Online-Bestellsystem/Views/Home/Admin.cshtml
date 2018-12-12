@@ -1,1 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+@model AdminModel
+@{
+    var username = Context.Session.GetString("username");
+    <h1>Admin: @username</h1>
+}

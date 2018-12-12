@@ -49,37 +49,14 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Migrations\201811210834158_DbCreation.cs" />
-    <Compile Include="Migrations\201811210834158_DbCreation.Designer.cs">
-      <DependentUpon>201811210834158_DbCreation.cs</DependentUpon>
+    <Compile Include="Exceptionx.cs" />
+    <Compile Include="Migrations\201812111011584_FirstMigration.cs" />
+    <Compile Include="Migrations\201812111011584_FirstMigration.Designer.cs">
+      <DependentUpon>201812111011584_FirstMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812031000353_MigrationAddedRoles.cs" />
-    <Compile Include="Migrations\201812031000353_MigrationAddedRoles.Designer.cs">
-      <DependentUpon>201812031000353_MigrationAddedRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812031318438_AddedUser.cs" />
-    <Compile Include="Migrations\201812031318438_AddedUser.Designer.cs">
-      <DependentUpon>201812031318438_AddedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812031430566_ChangedDeadLinetoString.cs" />
-    <Compile Include="Migrations\201812031430566_ChangedDeadLinetoString.Designer.cs">
-      <DependentUpon>201812031430566_ChangedDeadLinetoString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812031454296_DeletedDeliveryTime.cs" />
-    <Compile Include="Migrations\201812031454296_DeletedDeliveryTime.Designer.cs">
-      <DependentUpon>201812031454296_DeletedDeliveryTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812031458416_PricetoDouble.cs" />
-    <Compile Include="Migrations\201812031458416_PricetoDouble.Designer.cs">
-      <DependentUpon>201812031458416_PricetoDouble.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812051130552_AddedPictures.cs" />
-    <Compile Include="Migrations\201812051130552_AddedPictures.Designer.cs">
-      <DependentUpon>201812051130552_AddedPictures.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812051200174_AddedIsEnabledToProduct.cs" />
-    <Compile Include="Migrations\201812051200174_AddedIsEnabledToProduct.Designer.cs">
-      <DependentUpon>201812051200174_AddedIsEnabledToProduct.cs</DependentUpon>
+    <Compile Include="Migrations\201812120828087_AddedExceptionx.cs" />
+    <Compile Include="Migrations\201812120828087_AddedExceptionx.Designer.cs">
+      <DependentUpon>201812120828087_AddedExceptionx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Order.cs" />
@@ -98,29 +75,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811210834158_DbCreation.resx">
-      <DependentUpon>201811210834158_DbCreation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812111011584_FirstMigration.resx">
+      <DependentUpon>201812111011584_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031000353_MigrationAddedRoles.resx">
-      <DependentUpon>201812031000353_MigrationAddedRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031318438_AddedUser.resx">
-      <DependentUpon>201812031318438_AddedUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031430566_ChangedDeadLinetoString.resx">
-      <DependentUpon>201812031430566_ChangedDeadLinetoString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031454296_DeletedDeliveryTime.resx">
-      <DependentUpon>201812031454296_DeletedDeliveryTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031458416_PricetoDouble.resx">
-      <DependentUpon>201812031458416_PricetoDouble.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812051130552_AddedPictures.resx">
-      <DependentUpon>201812051130552_AddedPictures.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812051200174_AddedIsEnabledToProduct.resx">
-      <DependentUpon>201812051200174_AddedIsEnabledToProduct.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812120828087_AddedExceptionx.resx">
+      <DependentUpon>201812120828087_AddedExceptionx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,5 +16,6 @@ namespace Database
         public DbSet<Order_Item> Order_Items { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Exceptionx> Exceptionsx { get; set; }
     }
 }

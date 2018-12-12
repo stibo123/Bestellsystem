@@ -19,6 +19,7 @@ namespace Online_Bestellsystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(x => new Context());
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".Bestellsystem.Session";
@@ -26,7 +27,6 @@ namespace Online_Bestellsystem
                 options.Cookie.HttpOnly = true;
             });
             services.AddMvc();
-            services.AddSingleton(x => new Context());
             services.AddDistributedMemoryCache();
             
             

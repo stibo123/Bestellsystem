@@ -7,13 +7,13 @@ namespace Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PricetoDouble : IMigrationMetadata
+    public sealed partial class AddedExceptionx : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PricetoDouble));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedExceptionx));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812031458416_PricetoDouble"; }
+            get { return "201812120828087_AddedExceptionx"; }
         }
         
         string IMigrationMetadata.Source

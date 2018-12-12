@@ -3,16 +3,16 @@ namespace Database.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class PricetoDouble : DbMigration
+    public partial class AddedExceptionx : DbMigration
     {
         public override void Up()
         {
-            AlterColumn("dbo.Products", "Price", c => c.Double(nullable: false));
+            RenameTable(name: "dbo.ExceptionTables", newName: "Exceptionxes");
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Products", "Price", c => c.Int(nullable: false));
+            RenameTable(name: "dbo.Exceptionxes", newName: "ExceptionTables");
         }
     }
 }

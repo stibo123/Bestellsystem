@@ -4,13 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Online_Bestellsystem.Models;
-using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
-using MailKit;
 using MimeKit;
 using MailKit.Net.Smtp;
 
@@ -22,14 +19,17 @@ namespace Online_Bestellsystem.Controllers
         public HomeController(Context db)
         {
             this.db = db;
-
         }
         public IActionResult Index()
         {
-            //AddExampleUsers();
             //AddRoles();
+            //DeleteExampleData();
+            //AddExampleData();
+
             return View(LoggedIn());
         }
+
+
 
         public string LoggedIn()
         {
@@ -59,10 +59,15 @@ namespace Online_Bestellsystem.Controllers
                 string email = Request.Form["email"];
 
                 User user = db.Users.Single(x => x.Username == username);
-                if(user.Email == email)
+                if (user.Email == email)
                 {
                     var newpassword = GeneratePassword(8);
-                    if(sendEmail(newpassword, user))
+                    var title = "Neues Passwort";
+                    var text = new TextPart("plain")
+                    {
+                        Text = $"Passwort: {newpassword}"
+                    };
+                    if (sendEmail(title, text, user))
                     {
                         db.Users.Single(x => x.Username == username).Password = GenerateSHA512String(newpassword);
                         db.SaveChanges();
@@ -73,7 +78,7 @@ namespace Online_Bestellsystem.Controllers
                     {
                         return View("Reset");
                     }
-                    
+
                 }
                 else
                 {
@@ -87,18 +92,15 @@ namespace Online_Bestellsystem.Controllers
             return View("Reset");
         }
 
-        public bool sendEmail(string password, User user)
+        public bool sendEmail(string title, TextPart text, User user)
         {
             try
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Bestellsystem Aspöck", "bestellsystemaspoeck@gmail.com"));
                 message.To.Add(new MailboxAddress($"{user.Firstname} {user.Lastname}", user.Email));
-                message.Subject = "Neues Passwort";
-                message.Body = new TextPart("plain")
-                {
-                    Text = $"Passwort: {password}"
-                };
+                message.Subject = title;
+                message.Body = text;
 
                 using (var client = new SmtpClient())
                 {
@@ -109,29 +111,34 @@ namespace Online_Bestellsystem.Controllers
                 }
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                ViewBag.Reset = $"Fehler {e.Message}";
+                ViewBag.Reset = $"Es ist ein Fehler aufgetreten :(";
+                SaveException(e.Message);
                 return false;
             }
+        }
+
+        public void SaveException(string problem)
+        {
+            db.Exceptionsx.Add(new Exceptionx { Problem = problem, Date = DateTime.Now });
+            db.SaveChanges();
         }
 
         public List<Product> GetProductsFromSupplier(Category category, User user)
         {
             List<Product> products = new List<Product> { };
-            try{
+            try
+            {
                 if (category != null)
                 {
-                    if(user!=null)
+                    if (user != null)
                     {
-                        products = db.SupplierProperties.Single(x => x.User == user).Products.Where(x => x.Category==category).ToList();
+                        products = db.SupplierProperties.Single(x => x.User == user).Products.Where(x => x.Category == category).ToList();
                     }
                     else
                     {
-                        foreach(var property in db.SupplierProperties)
-                        {
-                            products.AddRange(property.Products.Where(x => x.Category == category).ToList());
-                        }
+                        products = db.Products.Where(x => x.Category == category).ToList();
                     }
                 }
                 else
@@ -142,19 +149,15 @@ namespace Online_Bestellsystem.Controllers
                     }
                     else
                     {
-                        foreach (var property in db.SupplierProperties)
-                        {
-                            products.AddRange(property.Products.ToList());
-                        }
+                        products = db.Products.ToList();
                     }
                 }
-                
+
             }
-            catch{
-                foreach (var property in db.SupplierProperties)
-                {
-                    products.AddRange(property.Products.ToList());
-                }
+            catch (Exception e)
+            {
+                products = db.Products.ToList();
+                SaveException(e.Message);
             }
             return products;
         }
@@ -166,11 +169,16 @@ namespace Online_Bestellsystem.Controllers
 
         public IActionResult Admin()
         {
-            
+            string page = LoggedIn();
+            if (page != "Admin") return View(page);
+
             return View();
         }
         public IActionResult Employee()
         {
+            string page = LoggedIn();
+            if (page != "Employee") return View(page);
+
             EmployeeModel model = new EmployeeModel()
             {
                 Supplier = db.Users.Where(x => x.Role.Name == "Supplier").ToList(),
@@ -182,14 +190,61 @@ namespace Online_Bestellsystem.Controllers
         }
         public IActionResult Supplier()
         {
-            
+            string page = LoggedIn();
+            if (page != "Supplier") return View(page);
+
             return View();
         }
 
         public IActionResult Reset()
         {
-            
             return View();
+        }
+
+        public void GenerateUser(List<String> emails)
+        {
+            foreach (var email in emails)
+            {
+                Console.WriteLine(db.Users.Where(x => x.Email == email).Count());
+                if (db.Users.Where(x => x.Email == email).Count() == 0)
+                {
+                    var username = email.Split('@')[0];
+                    if (db.Users.Where(x => x.Username == username).Count() > 0)
+                    {
+                        username = username + GeneratePassword(8);
+                    }
+                    var firstname = "vorname";
+                    var lastname = "lastname";
+                    var password = GeneratePassword(8);
+
+                    var user = new User
+                    {
+                        Firstname = firstname,
+                        Lastname = lastname,
+                        Email = email,
+                        Password = GenerateSHA512String(password),
+                        Username = username,
+                        Role = db.Roles.Single(x => x.Name == "Employee")
+                    };
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    var text = new TextPart("plain")
+                    {
+                        Text = $@"
+Dein Administrator hat einen Account für dich erstellt. 
+Email:  {email}
+Username: {username}
+Passwort: {password}
+Ändere bitte alsbald deinen Usernamen und Passwort."
+                    };
+                    sendEmail("Bestellsystem Aspöck - Account", text, user);
+                }
+            }
+        }
+
+        public void Sebbi()
+        {
+            GenerateUser(new List<string> { "freymuller.sebastian@gmail.com" });
         }
 
         public IActionResult Login()
@@ -198,35 +253,32 @@ namespace Online_Bestellsystem.Controllers
             if (page != "Index") return View(page);
             try
             {
-                    string username = Request.Form["username"];
-                    string password = Request.Form["password"];
+                string username = Request.Form["username"];
+                string password = Request.Form["password"];
 
-                    User user = null;
-                    try
-                    {
-                        user = db.Users.Single(x => x.Username == username);
-                        if (user != null && user.Password == GenerateSHA512String(password))
-                        {
-                            HttpContext.Session.SetString("username", user.Username);
-                            HttpContext.Session.SetString("firstlogin", DateTime.Now.ToString()); 
-                            return View(user.Role.Name);
-                        }
-                    }
-                    catch
-                    {
-                        return View("Index");
-                    }
+                User user = null;
+                user = db.Users.Single(x => x.Username == username);
+                if (user != null && user.Password == GenerateSHA512String(password))
+                {
+                    HttpContext.Session.SetString("username", user.Username);
+                    HttpContext.Session.SetString("firstlogin", DateTime.Now.ToString());
+                    return View(user.Role.Name);
+                }
+                else
+                {
+                    ViewBag.Reset = "Falsches Passwort";
+                }
             }
             catch
             {
-                return View("Index");
+                ViewBag.Reset = "Falscher Username";
             }
             return View("Index");
         }
         public IActionResult Logout()
         {
             HttpContext.Session.SetString("username", "");
-            HttpContext.Session.SetString("firstlogin","");
+            HttpContext.Session.SetString("firstlogin", "");
             return View("Index");
         }
 
@@ -277,7 +329,7 @@ namespace Online_Bestellsystem.Controllers
             db.SaveChanges();
         }
 
-        public void AddExampleUsers()
+        public void DeleteExampleData()
         {
             foreach (var user in db.Users)
             {
@@ -297,7 +349,11 @@ namespace Online_Bestellsystem.Controllers
             }
 
             db.SaveChanges();
-            
+        }
+
+        public void AddExampleData()
+        {
+
             User admin = new User
             {
                 Firstname = "Heimo",
@@ -350,7 +406,7 @@ namespace Online_Bestellsystem.Controllers
                 DeliveryDates = new List<DateTime> { DateTime.ParseExact("24.12.2018 23:00:00", "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) },
                 WantEmail = true,
                 User = db.Users.Single(x => x.Username == "sebbi"),
-                Products = new List<Product> { new Product { Name = "Cola", Price = 1.5, Category = new Category { Name = "Getränk" }, ProductImage= new ProductImage { } } }
+                Products = new List<Product> { new Product { Name = "Cola", Price = 1.5, Category = new Category { Name = "Getränk" }, ProductImage = new ProductImage { } } }
             };
 
             db.SupplierProperties.Add(properties);
@@ -358,5 +414,5 @@ namespace Online_Bestellsystem.Controllers
             db.SaveChanges();
 
         }
-        }
     }
+}
