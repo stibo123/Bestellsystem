@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @model SupplierModel
 @{
+    ViewData["Title"] = "Bestellsystem - Aspöck";
     var username = Context.Session.GetString("username");
     <h1>Lieferant: @username</h1>
 }

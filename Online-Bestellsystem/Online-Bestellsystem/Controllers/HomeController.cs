@@ -25,11 +25,17 @@ namespace Online_Bestellsystem.Controllers
             //AddRoles();
             //DeleteExampleData();
             //AddExampleData();
-
-            return View(LoggedIn());
+            string rolename = LoggedIn();
+            CheckModel(rolename);
+            return View(rolename);
         }
 
-
+        public void CheckModel(string rolename)
+        {
+            if (rolename == "Employee") Employee();
+            else if (rolename == "Admin") Admin();
+            else if (rolename == "Supplier") Supplier();
+        }
 
         public string LoggedIn()
         {
@@ -67,7 +73,7 @@ namespace Online_Bestellsystem.Controllers
                     {
                         Text = $"Passwort: {newpassword}"
                     };
-                    if (sendEmail(title, text, user))
+                    if (SendEmail(title, text, user))
                     {
                         db.Users.Single(x => x.Username == username).Password = GenerateSHA512String(newpassword);
                         db.SaveChanges();
@@ -92,7 +98,7 @@ namespace Online_Bestellsystem.Controllers
             return View("Reset");
         }
 
-        public bool sendEmail(string title, TextPart text, User user)
+        public bool SendEmail(string title, TextPart text, User user)
         {
             try
             {
@@ -166,7 +172,13 @@ namespace Online_Bestellsystem.Controllers
         {
             return HttpContext.Session.GetString("username");
         }
+        public IActionResult Supplier()
+        {
+            string page = LoggedIn();
+            if (page != "Supplier") return View(page);
 
+            return View();
+        }
         public IActionResult Admin()
         {
             string page = LoggedIn();
@@ -179,21 +191,19 @@ namespace Online_Bestellsystem.Controllers
             string page = LoggedIn();
             if (page != "Employee") return View(page);
 
+            var model = GetEmployeeModel();
+            return View(model);
+        }
+
+        public EmployeeModel GetEmployeeModel()
+        {
             EmployeeModel model = new EmployeeModel()
             {
-                Supplier = db.Users.Where(x => x.Role.Name == "Supplier").ToList(),
+                SupplierProperties = db.SupplierProperties.ToList(),
                 Categories = db.Categories.ToList(),
                 Products = GetProductsFromSupplier(null, null)
             };
-
-            return View(model);
-        }
-        public IActionResult Supplier()
-        {
-            string page = LoggedIn();
-            if (page != "Supplier") return View(page);
-
-            return View();
+            return model;
         }
 
         public IActionResult Reset()
@@ -237,20 +247,17 @@ Username: {username}
 Passwort: {password}
 Ändere bitte alsbald deinen Usernamen und Passwort."
                     };
-                    sendEmail("Bestellsystem Aspöck - Account", text, user);
+                    SendEmail("Bestellsystem Aspöck - Account", text, user);
                 }
             }
         }
 
-        public void Sebbi()
-        {
-            GenerateUser(new List<string> { "freymuller.sebastian@gmail.com" });
-        }
-
         public IActionResult Login()
         {
-            string page = LoggedIn();
-            if (page != "Index") return View(page);
+            string rolename = LoggedIn();
+            CheckModel(rolename);
+            if (rolename != "Index") return View(rolename);
+
             try
             {
                 string username = Request.Form["username"];
@@ -262,6 +269,7 @@ Passwort: {password}
                 {
                     HttpContext.Session.SetString("username", user.Username);
                     HttpContext.Session.SetString("firstlogin", DateTime.Now.ToString());
+                    CheckModel(user.Role.Name);
                     return View(user.Role.Name);
                 }
                 else
@@ -392,14 +400,25 @@ Passwort: {password}
                 Password = GenerateSHA512String("test")
             };
 
+            User musti = new User
+            {
+                Firstname = "Musti",
+                Lastname = "Fleisch",
+                Email = "weirdflexbotok@gmail.com",
+                Username = "musti",
+                Role = db.Roles.Single(x => x.Name == "Supplier"),
+                Password = GenerateSHA512String("musti123")
+            };
+
 
             db.Users.Add(admin);
             db.Users.Add(employee);
             db.Users.Add(supplier);
             db.Users.Add(test);
+            db.Users.Add(musti);
             db.SaveChanges();
 
-            SupplierProperties properties = new SupplierProperties
+            SupplierProperties volt = new SupplierProperties
             {
                 CompanyName = "Volt Studios",
                 DeadLine = "11:00",
@@ -409,7 +428,21 @@ Passwort: {password}
                 Products = new List<Product> { new Product { Name = "Cola", Price = 1.5, Category = new Category { Name = "Getränk" }, ProductImage = new ProductImage { } } }
             };
 
-            db.SupplierProperties.Add(properties);
+            SupplierProperties kebap = new SupplierProperties
+            {
+                CompanyName = "Kepab",
+                DeadLine = "12:00",
+                DeliveryDates = new List<DateTime> { DateTime.ParseExact("24.12.2018 23:00:00", "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) },
+                WantEmail = true,
+                User = db.Users.Single(x => x.Username == "musti"),
+                Products = new List<Product> {
+                    new Product { Name = "Kebap", Price = 3.5, Category = new Category { Name = "Kebap" },ProductImage = new ProductImage { } } ,
+                    new Product { Name = "Fanta", Price = 1.5, Category = new Category { Name = "Fanti" }, ProductImage = new ProductImage { } }
+                     }
+            };
+
+            db.SupplierProperties.Add(volt);
+            db.SupplierProperties.Add(kebap);
 
             db.SaveChanges();
 

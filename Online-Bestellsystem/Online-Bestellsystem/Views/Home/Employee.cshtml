@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @model EmployeeModel
 @{
+    ViewData["Title"] = "Bestellsystem - Aspöck";
     var username = Context.Session.GetString("username");
     <h1>Employee: @username</h1>
 }
@@ -8,13 +9,29 @@
 
 
 
-<select id="categorie_menu" class="categories">
-        <option>Alle Produkte</option>
+<select class="category_dropdown">
+    <option>Alle Produkte</option>
+    @foreach (var category in Model.Categories)
+    {
+        <option>@category.Name</option>
+    }
+
 </select>
+
+<select class="supplier_dropdown">
+    <option>Alle Lieferanten</option>
+    @foreach (var supplier in Model.SupplierProperties)
+    {
+        <option>@supplier.CompanyName</option>
+    }
+
+</select>
+
+
 
 <style>
 
-    .categories {
+    .category_dropdown {
         background-color: #4CAF50;
         color: white;
         padding: 16px;

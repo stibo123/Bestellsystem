@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETFramework,Version=v4.6.1/win7-x86",
-    "signature": "cc05eb2d8c61fb515f41eb4497125bd8ccf3faf3"
+    "signature": "f067ea4d78dad6c78c3ff36e59fa01e16925356d"
   },
   "compilationOptions": {
     "defines": [
@@ -33,6 +33,7 @@
           "Microsoft.AspNetCore.Session": "2.1.1",
           "Microsoft.AspNetCore.StaticFiles": "2.0.3",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.3",
+          "bootstrap": "4.1.3",
           "Microsoft.CSharp.Reference": "4.0.0.0",
           "mscorlib": "4.0.0.0",
           "System.ComponentModel.Composition": "4.0.0.0",
@@ -788,6 +789,12 @@
           "System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "bootstrap/4.1.3": {
+        "dependencies": {
+          "jQuery": "3.0.0",
+          "popper.js": "1.14.0"
+        }
+      },
       "BouncyCastle/1.8.2": {
         "compile": {
           "lib/BouncyCastle.Crypto.dll": {}
@@ -799,6 +806,7 @@
           "lib/net45/EntityFramework.dll": {}
         }
       },
+      "jQuery/3.0.0": {},
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -1748,6 +1756,7 @@
           "lib/net45/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "popper.js/1.14.0": {},
       "System.AppContext/4.3.0": {},
       "System.Buffers/4.4.0": {
         "compile": {
@@ -1908,6 +1917,7 @@
           "Microsoft.AspNetCore.Session": "2.1.1",
           "Microsoft.AspNetCore.StaticFiles": "2.0.3",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.3",
+          "bootstrap": "4.1.3",
           "Microsoft.CSharp.Reference": "4.0.0.0",
           "mscorlib": "4.0.0.0",
           "System.ComponentModel.Composition": "4.0.0.0",
@@ -2038,6 +2048,12 @@
           "Online-Bestellsystem.exe": {}
         }
       },
+      "bootstrap/4.1.3": {
+        "dependencies": {
+          "jQuery": "3.0.0",
+          "popper.js": "1.14.0"
+        }
+      },
       "BouncyCastle/1.8.2": {
         "runtime": {
           "lib/BouncyCastle.Crypto.dll": {}
@@ -2049,6 +2065,7 @@
           "lib/net45/EntityFramework.dll": {}
         }
       },
+      "jQuery/3.0.0": {},
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -3001,6 +3018,7 @@
           "lib/net45/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "popper.js/1.14.0": {},
       "System.AppContext/4.3.0": {},
       "System.Buffers/4.4.0": {
         "runtime": {
@@ -3160,6 +3178,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "bootstrap/4.1.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yi2n0QHkTPHFg0docVnhrlV38qkZeHk/PDUXN6P46Bn9HIwP6O8MURdpJ5G5fazwDG3eOzVDNfZi1fTfKV5vHw==",
+      "path": "bootstrap/4.1.3",
+      "hashPath": "bootstrap.4.1.3.nupkg.sha512"
+    },
     "BouncyCastle/1.8.2": {
       "type": "package",
       "serviceable": true,
@@ -3173,6 +3198,13 @@
       "sha512": "sha512-ptGyXOf26qLrtn+2doAmylIlCxOnBJANwlyyLrXDmqIk9O18IzLWHyxDwwAyhgXkxmbiaA0WNpRy67WRReInBw==",
       "path": "entityframework/6.2.0",
       "hashPath": "entityframework.6.2.0.nupkg.sha512"
+    },
+    "jQuery/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FXANjZia/vux9/ObNiPwh2zNWuzcgHMKXia1OQrviuf0OKPBWB2TBIVAICgtObuzEW+XLyaBEoVuOUlMXy0kNA==",
+      "path": "jquery/3.0.0",
+      "hashPath": "jquery.3.0.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
@@ -3859,6 +3891,13 @@
       "sha512": "sha512-5PYT/IqQ+UK31AmZiSS102R6EsTo+LGTSI8bp7WAUqDKaF4wHXD8U9u4WxTI1vc64tYi++8p3dk3WWNqPFgldw==",
       "path": "newtonsoft.json.bson/1.0.1",
       "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
+    },
+    "popper.js/1.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oamtAIKoHa/s45chV0TozJhrwTRUBURUVjFl1wHw1MrCplFDxmK41CMrMDQx1Eq08n7oEzqSHEPPWCdA6Mhb1w==",
+      "path": "popper.js/1.14.0",
+      "hashPath": "popper.js.1.14.0.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",
