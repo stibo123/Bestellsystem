@@ -175,21 +175,32 @@ namespace Online_Bestellsystem.Controllers
         public IActionResult Supplier()
         {
             string page = LoggedIn();
-            if (page != "Supplier") return View(page);
-
+            if (page != "Supplier")
+            {
+                CheckModel(page);
+                return View(page);
+            }
             return View();
         }
         public IActionResult Admin()
         {
             string page = LoggedIn();
-            if (page != "Admin") return View(page);
-
+            if (page != "Admin")
+            {
+                CheckModel(page);
+                return View(page);
+            }
             return View();
         }
         public IActionResult Employee()
         {
             string page = LoggedIn();
-            if (page != "Employee") return View(page);
+            if (page != "Employee")
+            {
+                CheckModel(page);
+                return View(page);
+            }
+                
 
             var model = GetEmployeeModel();
             return View(model);
@@ -418,6 +429,13 @@ Passwort: {password}
             db.Users.Add(musti);
             db.SaveChanges();
 
+            db.Categories.Add(new Category { Name = "Getränk" });
+            db.Categories.Add(new Category { Name = "Pizza" });
+            db.Categories.Add(new Category { Name = "Fast Food" });
+            db.Categories.Add(new Category { Name = "Alkohol" });
+            db.Categories.Add(new Category { Name = "Nudeln" });
+            db.SaveChanges();
+
             SupplierProperties volt = new SupplierProperties
             {
                 CompanyName = "Volt Studios",
@@ -425,7 +443,7 @@ Passwort: {password}
                 DeliveryDates = new List<DateTime> { DateTime.ParseExact("24.12.2018 23:00:00", "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) },
                 WantEmail = true,
                 User = db.Users.Single(x => x.Username == "sebbi"),
-                Products = new List<Product> { new Product { Name = "Cola", Price = 1.5, Category = new Category { Name = "Getränk" }, ProductImage = new ProductImage { } } }
+                Products = new List<Product> { new Product { Name = "Cola", Price = 1.5, Category = db.Categories.Single(x => x.Name=="Getränk"), ProductImage = new ProductImage { } } }
             };
 
             SupplierProperties kebap = new SupplierProperties
@@ -436,8 +454,10 @@ Passwort: {password}
                 WantEmail = true,
                 User = db.Users.Single(x => x.Username == "musti"),
                 Products = new List<Product> {
-                    new Product { Name = "Kebap", Price = 3.5, Category = new Category { Name = "Kebap" },ProductImage = new ProductImage { } } ,
-                    new Product { Name = "Fanta", Price = 1.5, Category = new Category { Name = "Fanti" }, ProductImage = new ProductImage { } }
+                    new Product { Name = "Kebap", Price = 3.5, Category = db.Categories.Single(x => x.Name=="Fast Food"),ProductImage = new ProductImage { } } ,
+                    new Product { Name = "Fanta", Price = 1.5, Category = db.Categories.Single(x => x.Name=="Getränk"), ProductImage = new ProductImage { } },
+                    new Product { Name = "Pizza Salami", Price = 1.5, Category = db.Categories.Single(x => x.Name=="Pizza"), ProductImage = new ProductImage { } },
+                    new Product { Name = "Tortellini", Price = 1.5, Category = db.Categories.Single(x => x.Name=="Nudeln"), ProductImage = new ProductImage { } }
                      }
             };
 

@@ -2,6 +2,14 @@
     ViewData["Title"] = "Bestellsystem - Aspöck";
 }
 
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <img src="~/images/bestellsystem_logo_weiß.png" alt="bild" class="img-responsive" width="80" height="35" style="margin: 10px 10px 10px 30px" />
+        </div>
+    </div>
+</nav>
+
 <h1>Login</h1>
 <form asp-action="Login" method="post" id="form_Login">
     <div>
@@ -15,7 +23,7 @@
     </div>
 
     <div>
-        <input type="submit" id="btn_login" value="Login" />
+        <input type="submit" class="btn btn-primary" value="Login" />
     </div>
 </form>
 <a asp-area="" asp-controller="Home" asp-action="Reset">Passwort vergessen?</a>
